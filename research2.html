@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Power of HTML Dashboard</title>
+    <style>
+        
+        :root {
+            --primary: #2563eb;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        header {
+            border-bottom: 2px solid #e2e8f0;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        section {
+            background: var(--surface);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 { margin-top: 0; color: var(--primary); }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        
+        details {
+            background: #f1f5f9;
+            padding: 0.5rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+        }
+
+        summary { font-weight: bold; padding: 0.5rem; }
+        meter { width: 100%; height: 25px; }
+
+        mark {
+            background-color: #fef08a;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #854d0e;
+        }
+
+        time {
+            font-family: monospace;
+            color: #64748b;
+            background: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        dialog {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 400px;
+        }
+        
+        dialog::backdrop { background: rgba(0, 0, 0, 0.5); }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        button.secondary { background: #64748b; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Server Status Dashboard</h1>
+        <p>Exploring HTML5 hidden gems + Dynamic Timezone Conversion.</p>
+    </header>
+
+    <section>
+        <h2>1. Timezone Settings (Datalist)</h2>
+        <p>Select a region to convert system logs to local time.</p>
+        <label for="zone-input">Select Timezone:</label>
+        
+        <input list="timezones" id="zone-input" placeholder="Type a city (e.g., India, Tokyo)...">
+        
+        <datalist id="timezones">
+            <option value="UTC">Universal Time (UTC)</option>
+            <option value="Asia/Kolkata">India (IST)</option>
+            <option value="America/New_York">New York (EST)</option>
+            <option value="Europe/London">London (GMT)</option>
+            <option value="Asia/Tokyo">Tokyo (JST)</option>
+            <option value="Australia/Sydney">Sydney (AEDT)</option>
+        </datalist>
+    </section>
+
+    <section>
+        <h2>2. User Lookup (Datalist)</h2>
+        <label for="admin-search">Find Admin:</label>
+        <input list="admins" id="admin-search" placeholder="Type to search...">
+        <datalist id="admins">
+             <option value="Parth Bansode">
+            <option value="neha Sutar">
+            <option value="Nidhi Pawar">
+            <option value="Sanjay Poojari">
+        </datalist>
+    </section>
+
+    <section>
+        <h2>3. Server Metrics (Meter & Output)</h2>
+        
+        <label for="cpu-usage">CPU Load:</label>
+        <meter id="cpu-usage" min="0" max="100" low="60" high="80" optimum="40" value="85">85%</meter>
+        <br><br>
+
+        <form oninput="result.value = parseInt(gigs.value) * 0.15">
+            <label for="gigs">Est. Bandwidth Cost (Traffic GB):</label>
+            <input type="number" id="gigs" value="100">
+            <span>× $0.15 = </span>
+            <strong>$<output name="result" for="gigs">15</output></strong>
+        </form>
+    </section>
+
+    <section>
+        <h2>4. System Logs (Details & Time)</h2>
+        <p>Logs are originally in UTC. Use the selector above to convert them.</p>
+        
+        <details open>
+            <summary>View Today's Activity</summary>
+            <ul id="log-list">
+                <li><time datetime="2023-11-15T08:00:00Z">08:00 UTC</time> System Boot initiated.</li>
+                <li><time datetime="2023-11-15T09:15:00Z">09:15 UTC</time> User 'Nidhi' logged in.</li>
+                <li><time datetime="2023-11-15T10:42:00Z">10:42 UTC</time> Backup scheduled.</li>
+                <li><time datetime="2023-11-15T14:00:00Z">14:00 UTC</time> CPU load spike detected.</li>
+            </ul>
+        </details>
+    </section>
+
+    <section>
+        <h2>5. Emergency Controls (Dialog & Mark)</h2>
+        <button id="open-btn">Reboot Server</button>
+
+        <dialog id="confirm-dialog">
+            <h3>⚠️ System Confirmation</h3>
+            <p>Are you sure you want to reboot? <mark>All current sessions will be lost.</mark></p>
+            <form method="dialog">
+                <button value="cancel" class="secondary">Cancel</button>
+                <button value="confirm">Confirm Reboot</button>
+            </form>
+        </dialog>
+    </section>
+
+    <script>
+       
+        const dialog = document.getElementById('confirm-dialog');
+        const openBtn = document.getElementById('open-btn');
+        openBtn.addEventListener('click', () => dialog.showModal());
+
+      
+        const zoneInput = document.getElementById('zone-input');
+        const timeTags = document.querySelectorAll('time');
+
+      
+        zoneInput.addEventListener('change', (e) => {
+            const selectedZone = e.target.value;
+
+          
+            timeTags.forEach(tag => {
+                
+                const originalTime = new Date(tag.getAttribute('datetime'));
+
+                try {
+                    
+                    const newTime = originalTime.toLocaleTimeString('en-US', {
+                        timeZone: selectedZone,
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false 
+                    });
+
+                    
+                    tag.textContent = `${newTime} (${selectedZone.split('/')[1] || selectedZone})`;
+                    
+                } catch (error) {
+                    console.error("Invalid Timezone");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
